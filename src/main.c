@@ -9,8 +9,14 @@
 const char keyboard_map[CHIP8_TOTAL_KEYS] = {
     SDLK_q, SDLK_w, SDLK_e, SDLK_r, SDLK_t, SDLK_y,
     SDLK_a, SDLK_s, SDLK_d, SDLK_f, SDLK_g, SDLK_z,
-    SDLK_x, SDLK_c, SDLK_v, SDLK_b
-    };
+    SDLK_x, SDLK_c, SDLK_v, SDLK_b};
+
+// const char keyboard_map[CHIP8_TOTAL_KEYS] = {
+//     SDLK_KP_7, SDLK_KP_8, SDLK_KP_9, SDLK_KP_DIVIDE,       // 1 2 3 C
+//     SDLK_KP_4, SDLK_KP_5, SDLK_KP_6, SDLK_KP_MULTIPLY,     // 4 5 6 D
+//     SDLK_KP_1, SDLK_KP_2, SDLK_KP_3, SDLK_KP_MINUS,        // 7 8 9 E
+//     SDLK_KP_0, SDLK_KP_PERIOD, SDLK_KP_PLUS, SDLK_KP_ENTER // A 0 B F
+// };
 
 int main(int argc, char **argv)
 {
@@ -38,7 +44,7 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    //printf("%s\n", buf);
+    // printf("%s\n", buf);
 
     struct chip8 chip8;
     chip8_init(&chip8);
@@ -51,11 +57,10 @@ int main(int argc, char **argv)
         SDL_WINDOWPOS_UNDEFINED,
         SDL_WINDOWPOS_UNDEFINED,
         CHIP8_WIDTH * CHIP8_WINDOW_MULTIPLIER,
-        CHIP8_HEIGHT * CHIP8_WINDOW_MULTIPLIER,SDL_WINDOW_SHOWN);
-    
+        CHIP8_HEIGHT * CHIP8_WINDOW_MULTIPLIER, SDL_WINDOW_SHOWN);
+
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_TEXTUREACCESS_TARGET);
 
-    
     while (1)
     {
         SDL_Event event;
@@ -77,7 +82,7 @@ int main(int argc, char **argv)
                 {
                     chip8_keyboard_down(&chip8.keyboard, vkey);
                 }
-                //printf("Key is down %x\n", vkey);
+                // printf("Key is down %x\n", vkey);
             }
             break;
 
@@ -90,7 +95,7 @@ int main(int argc, char **argv)
                 {
                     chip8_keyboard_up(&chip8.keyboard, vkey);
                 }
-                //printf("Key is up %x\n", vkey);
+                // printf("Key is up %x\n", vkey);
             }
             break;
             }
@@ -119,7 +124,7 @@ int main(int argc, char **argv)
         {
             Sleep(1);
             chip8.registers.delay_timer -= 1;
-            //printf("DelaySuccessful\n");
+            // printf("DelaySuccessful\n");
         }
 
         if (chip8.registers.sound_timer > 0)
@@ -131,7 +136,7 @@ int main(int argc, char **argv)
         chip8.registers.PC += 2;
         chip8_exec(&chip8, opcode);
 
-        //printf("%x\n", opcode);
+        // printf("%x\n", opcode);
     }
 
 out:
